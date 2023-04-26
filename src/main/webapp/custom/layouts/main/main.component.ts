@@ -4,7 +4,10 @@ import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
-import { AccountService } from 'app/core/auth/account.service';
+import { AnalyticsService } from 'custom/@core/utils/analytics.service';
+import { SeoService } from 'custom/@core/utils/seo.service';
+
+import { AccountService } from 'custom/core/auth/account.service';
 
 @Component({
   selector: 'jhi-main',
@@ -18,6 +21,8 @@ export class MainComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
+    private analytics: AnalyticsService,
+    private seoService: SeoService,
     rootRenderer: RendererFactory2
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
@@ -38,6 +43,9 @@ export class MainComponent implements OnInit {
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
+
+    this.analytics.trackPageViews();
+    this.seoService.trackCanonicalChanges();
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
