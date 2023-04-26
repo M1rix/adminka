@@ -23,6 +23,9 @@
             "customWebpackConfig": {
               "path": "./webpack/webpack.custom.js"
             },
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"]
+            },
             "outputPath": "target/classes/static/",
             "index": "src/main/webapp/index.html",
             "main": "src/main/webapp/main.ts",
@@ -35,7 +38,7 @@
               "src/main/webapp/manifest.webapp",
               "src/main/webapp/robots.txt"
             ],
-            "styles": ["src/main/webapp/content/scss/vendor.scss", "src/main/webapp/content/scss/global.scss"],
+            "styles": ["src/main/webapp/content/custom/styles.scss"],
             "scripts": []
           },
           "configurations": {

@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from 'custom/@core/core.module';
 import { ThemeModule } from 'custom/@theme/theme.module';
 import {
+  NbActionsModule,
+  NbButtonGroupModule, NbButtonModule,
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
@@ -49,9 +51,9 @@ import { ErrorComponent } from './layouts/error/error.component';
     // jhipster-needle-angular-add-module JHipster will add new module here
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: false}),
     HttpClientModule,
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    NgxWebstorageModule.forRoot({prefix: 'jhi', separator: '-', caseSensitive: true}),
     TranslationModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -68,6 +70,9 @@ import { ErrorComponent } from './layouts/error/error.component';
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    NbButtonGroupModule,
+    NbActionsModule,
+    NbButtonModule,
   ],
   providers: [
     Title,
