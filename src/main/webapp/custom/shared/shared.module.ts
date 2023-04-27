@@ -13,6 +13,7 @@ import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
 import { FilterComponent } from './filter/filter.component';
+import { JhiDataFeatherDirective } from "./feather/jhi-data-feather.directive";
 
 @NgModule({
   imports: [SharedLibsModule],
@@ -29,6 +30,7 @@ import { FilterComponent } from './filter/filter.component';
     SortDirective,
     ItemCountComponent,
     FilterComponent,
+    JhiDataFeatherDirective
   ],
   exports: [
     SharedLibsModule,
@@ -44,6 +46,7 @@ import { FilterComponent } from './filter/filter.component';
     SortDirective,
     ItemCountComponent,
     FilterComponent,
+    JhiDataFeatherDirective
   ],
 })
 export class SharedModule {}

@@ -38,7 +38,7 @@
               "src/main/webapp/manifest.webapp",
               "src/main/webapp/robots.txt"
             ],
-            "styles": ["src/main/webapp/content/custom/styles.scss"],
+            "styles": ["src/main/webapp/content/scss/custom.scss"],
             "scripts": []
           },
           "configurations": {

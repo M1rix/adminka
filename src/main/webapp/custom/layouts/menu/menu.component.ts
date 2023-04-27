@@ -9,25 +9,19 @@ import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
-import { HttpResponse } from '@angular/common/http';
-import { AuthServerProvider } from 'custom/core/auth/auth-jwt.service';
-import { AuthServerProvider as AuthJWTProvider } from 'app/core/auth/auth-jwt.service';
+import { ScriptLoaderService } from './scripts/scripts-loader.service';
 
 @Component({
-  selector: 'jhi-navbar',
-  templateUrl: './navbar.component.html',
+  selector: 'jhi-menu',
+  templateUrl: './menu.component.html',
 })
-export class NavbarComponent implements OnInit {
+export class MenuComponent implements OnInit {
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
   account: Account | null = null;
-  timeout: any | null = null;
-
-  userName = '';
-  tenantName = '';
 
   constructor(
     private loginService: LoginService,
@@ -36,7 +30,7 @@ export class NavbarComponent implements OnInit {
     private accountService: AccountService,
     private profileService: ProfileService,
     private router: Router,
-    protected authJWTProvider: AuthJWTProvider
+    private scriptLoader: ScriptLoaderService
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -48,10 +42,9 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
-    this.accountService.getAuthenticationState().subscribe(account => {
-      this.account = account;
-      this.setUserName();
-    });
+    this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+
+    this.scriptLoader.load('content/custom/app-assets/js/core/app-menu.js', 'content/custom/app-assets/js/core/app.js');
   }
 
   changeLanguage(languageKey: string): void {
@@ -71,34 +64,9 @@ export class NavbarComponent implements OnInit {
     this.collapseNavbar();
     this.loginService.logout();
     this.router.navigate(['']);
-    window.location.reload();
   }
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
-
-  private setUserName(): void {
-    const firstName = this.account!.firstName ?? '';
-    const lastName = this.account!.lastName ?? '';
-    const email = this.account!.email;
-    const login = this.account!.login;
-
-    if (!this.isBlank(firstName) && !this.isBlank(lastName)) {
-      this.userName = `${lastName} ${firstName.substring(0, 1).toUpperCase()}`;
-    } else if (!this.isBlank(firstName)) {
-      this.userName = firstName;
-    } else if (!this.isBlank(lastName)) {
-      this.userName = lastName;
-    } else if (!this.isBlank(email)) {
-      this.userName = email;
-    } else if (!this.isBlank(login)) {
-      this.userName = login;
-    }
-  }
-
-  private isBlank(str?: string | null): boolean {
-    return !str || str.trim().length === 0;
-  }
-
 }

@@ -1,0 +1,129 @@
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true" style="z-index: 1052">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav flex-row">
+      <li class="nav-item mr-auto">
+        <a class="navbar-brand justify-content-center" href="/">
+          <span class="brand-logo d-flex justify-content-center" style="margin-left: 10px; transform: scale(1.5)">
+            <i jhiDataFeather="car"></i>
+          </span>
+          <h2 class="brand-text">EXPRESS SIGN</h2>
+        </a>
+      </li>
+      <li class="nav-item nav-toggle">
+        <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+          <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" jhiDataFeather="x"></i>
+          <i class="d-none d-xl-block collapse-toggle-icon font-medium-4 text-primary" jhiDataFeather="disc" data-ticon="disc"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="shadow-bottom"></div>
+  <div class="main-menu-content" [ngSwitch]="account !== null">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+      <ng-container *jhiHasAnyAuthority="['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_DATA_ENTRY', 'ROLE_COORDINATOR']">
+        <li class="nav-item" *ngSwitchCase="true" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="d-flex align-items-center" routerLink="/">
+            <i jhiDataFeather="home"></i>
+            <span class="menu-title text-truncate">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngSwitchCase="true" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="d-flex align-items-center" routerLink="/tracking">
+            <i jhiDataFeather="activity"></i>
+            <span class="menu-title text-truncate">Tracking</span>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngSwitchCase="true" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="d-flex align-items-center" routerLink="/performance">
+            <i jhiDataFeather="calendar"></i>
+            <span class="menu-title text-truncate">Performance</span>
+          </a>
+        </li>
+      </ng-container>
+
+      <li
+        *jhiHasAnyAuthority="['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER']"
+        class="nav-item has-sub"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="d-flex align-items-center" href="javascript:void(0);">
+          <i jhiDataFeather="users"></i>
+          <span class="menu-title text-truncate">Administration</span>
+        </a>
+        <ul class="menu-content">
+          <li routerLinkActive="active" *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <a class="d-flex align-items-center" routerLink="tenant" routerLinkActive="active">
+              <i jhiDataFeather="heart"></i>
+              <span class="menu-item text-truncate">Tenant</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="d-flex align-items-center" routerLink="admin/user-management" routerLinkActive="active">
+              <i jhiDataFeather="users"></i>
+              <span class="menu-item text-truncate">User management</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="d-flex align-items-center" routerLink="triumph-account" routerLinkActive="active">
+              <i jhiDataFeather="user"></i>
+              <span class="menu-item text-truncate">Tenant</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="d-flex align-items-center" routerLink="efs-account" routerLinkActive="active">
+              <i jhiDataFeather="user"></i>
+              <span class="menu-item text-truncate">EFS Account</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="d-flex align-items-center" routerLink="pre-pass-account" routerLinkActive="active">
+              <i jhiDataFeather="user"></i>
+              <span class="menu-item text-truncate">Pre Pass Accounts</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="d-flex align-items-center" routerLink="telegram-group" routerLinkActive="active">
+              <i jhiDataFeather="send"></i>
+              <span class="menu-item text-truncate">Telegram Groups</span>
+            </a>
+          </li>
+          <li routerLinkActive="active" *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <a class="d-flex align-items-center" routerLink="admin/metrics" routerLinkActive="active">
+              <i jhiDataFeather="heart"></i>
+              <span class="menu-item text-truncate">Metrics</span>
+            </a>
+          </li>
+          <li routerLinkActive="active" *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <a class="d-flex align-items-center" routerLink="admin/health" routerLinkActive="active">
+              <i jhiDataFeather="heart"></i>
+              <span class="menu-item text-truncate">Health</span>
+            </a>
+          </li>
+          <li routerLinkActive="active" *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <a class="d-flex align-items-center" routerLink="admin/configuration" routerLinkActive="active">
+              <i jhiDataFeather="sliders"></i>
+              <span class="menu-item text-truncate">Configuration</span>
+            </a>
+          </li>
+          <li routerLinkActive="active" *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <a class="d-flex align-items-center" routerLink="admin/logs" routerLinkActive="active">
+              <i jhiDataFeather="align-justify"></i>
+              <span class="menu-item text-truncate">Logs</span>
+            </a>
+          </li>
+          <ng-container *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'">
+            <li *ngIf="openAPIEnabled" routerLinkActive="active">
+              <a class="d-flex align-items-center" routerLink="admin/docs" routerLinkActive="active">
+                <i jhiDataFeather="bar-chart-2"></i>
+                <span class="menu-item text-truncate">API</span>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

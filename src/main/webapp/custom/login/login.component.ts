@@ -5,32 +5,15 @@ import { Router } from '@angular/router';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Inject } from '@angular/core';
-
-import {NbAuthResult, NbAuthService, NB_AUTH_OPTIONS, NbAuthSocialLink, getDeepFromObject} from "@nebular/auth";
-
-
-
 @Component({
   selector: 'jhi-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })
   username!: ElementRef;
 
   authenticationError = false;
-
-  redirectDelay: number = 0;
-  showMessages: any = {};
-  strategy: string = '';
-
-  errors: string[] = [];
-  messages: string[] = [];
-  user: any = {};
-  submitted: boolean = false;
-  socialLinks: NbAuthSocialLink[] = [];
-  rememberMe = false;
 
   loginForm = new FormGroup({
     username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -38,18 +21,7 @@ export class LoginComponent implements OnInit {
     rememberMe: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
   });
 
-  constructor(private accountService: AccountService, private loginService: LoginService,
-              protected service: NbAuthService,
-              @Inject(NB_AUTH_OPTIONS) protected options = {},
-              protected cd: ChangeDetectorRef,
-              protected router: Router) {
-
-    this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
-    this.showMessages = this.getConfigValue('forms.login.showMessages');
-    this.strategy = this.getConfigValue('forms.login.strategy');
-    this.socialLinks = this.getConfigValue('forms.login.socialLinks');
-    this.rememberMe = this.getConfigValue('forms.login.rememberMe');
-  }
+  constructor(private accountService: AccountService, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     // if already authenticated then navigate to home page
@@ -58,6 +30,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.username.nativeElement.focus();
   }
 
   login(): void {
@@ -71,33 +47,5 @@ export class LoginComponent implements OnInit {
       },
       error: () => (this.authenticationError = true),
     });
-  }
-
-  login2(): void {
-    this.errors = [];
-    this.messages = [];
-    this.submitted = true;
-
-    this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-      this.submitted = false;
-
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-      } else {
-        this.errors = result.getErrors();
-      }
-
-      const redirect = result.getRedirect();
-      if (redirect) {
-        setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay);
-      }
-      this.cd.detectChanges();
-    });
-  }
-
-  getConfigValue(key: string): any {
-    return getDeepFromObject(this.options, key, null);
   }
 }

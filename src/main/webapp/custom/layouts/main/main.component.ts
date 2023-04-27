@@ -2,18 +2,17 @@ import { Component, OnInit, RendererFactory2, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import dayjs from 'dayjs/esm';
+import * as dayjs from 'dayjs';
 
-import { AnalyticsService } from 'custom/@core/utils/analytics.service';
-import { SeoService } from 'custom/@core/utils/seo.service';
-
-import { AccountService } from 'custom/core/auth/account.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'jhi-main',
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
+  account: Account | null = null;
   private renderer: Renderer2;
 
   constructor(
@@ -21,8 +20,6 @@ export class MainComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
-    private analytics: AnalyticsService,
-    private seoService: SeoService,
     rootRenderer: RendererFactory2
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
@@ -31,6 +28,7 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     // try to log in automatically
     this.accountService.identity().subscribe();
+    this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -43,9 +41,6 @@ export class MainComponent implements OnInit {
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
-
-    this.analytics.trackPageViews();
-    this.seoService.trackCanonicalChanges();
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
