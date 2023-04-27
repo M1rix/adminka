@@ -1,0 +1,74 @@
+@import 'functions';
+@import 'variables';
+@import 'date-time-picker';
+@import 'ng-select';
+@import 'collapse';
+@import 'accordion';
+@import 'ng-contextmenu';
+@import 'navbar';
+@import '~quill/dist/quill.snow.css';
+@import 'alert.scss';
+@import 'quill-editor';
+@import 'performance';
+@import 'ngb-tooltip';
+@import 'icons.css';
+@import 'ngx-table';
+@import 'ngx-settlement-table';
+
+.li-hover:hover {
+  background-color: var(--primary) !important;
+  div {
+    label {
+      color: #fff !important;
+    }
+  }
+}
+
+.remove-btn:hover {
+  border-radius: 50% !important;
+  border: 1px solid #fff !important;
+}
+
+.loader {
+  display: inline-block;
+  animation: spin 1s infinite linear;
+}
+
+.criteria-date .input-group input[type='text'] {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1055;
+}
+
+.modal-backdrop,
+.modal {
+  z-index: 1060 !important;
+}
+
+@media (min-width: 1440px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 100% !important;
+  }
+}

@@ -1,0 +1,140 @@
+jhi-alert,
+jhi-alert-error {
+  position: fixed;
+  top: 2rem;
+  right: 3.3rem;
+  width: 25vw;
+  z-index: 1060;
+}
+.alerts {
+  background: transparent;
+  .alert,
+  ngb-alert {
+    text-overflow: ellipsis;
+    border-radius: 20px !important;
+    animation: fadein 0.5s linear, fadeout 0.5s linear 4.5s;
+    -webkit-animation: fadein 0.5s linear, fadeout 0.5s linear 4.5s;
+    & .close:focus {
+      animation: fadeout 0.5s;
+      -webkit-animation: fadeout 0.5s;
+    }
+  }
+}
+
+.toast {
+  width: 380px;
+  max-width: 100%;
+  font-size: 0.857rem;
+  color: #6e6b7b;
+  pointer-events: auto;
+  background-color: rgba(255, 255, 255, 0.85);
+  background-clip: padding-box;
+  border: 0 solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px 0 rgba(34, 41, 47, 0.08);
+  border-radius: 0.286rem;
+}
+
+.toast.showing {
+  opacity: 0;
+}
+
+.toast:not(.show) {
+  display: none;
+}
+
+.toast-container {
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.14rem;
+  color: #000 !important;
+  background-clip: padding-box;
+  border-bottom: 0 solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 4px 24px 10px rgb(34 41 47 / 10%);
+  background-color: #fff !important;
+}
+
+.toast-header .btn-close {
+  margin-right: -0.57rem;
+  margin-left: 1.14rem;
+}
+
+.toast-body {
+  padding: 1rem;
+  word-wrap: break-word;
+}
+
+.brand-text {
+  padding-left: 1rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  letter-spacing: 0.01rem;
+  font-size: 1.45rem;
+  animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+}
+
+.time {
+  position: absolute;
+  bottom: 0;
+  right: 0.3rem;
+  z-index: 2;
+  padding: 0.71rem 1rem;
+  color: #b9b9c3;
+}
+
+.close span {
+  color: #b9b9c3 !important;
+}
+
+@media (max-width: 990px) {
+  jhi-alert,
+  jhi-alert-error {
+    top: 2rem;
+    right: 1.2rem;
+    width: 90vw;
+    z-index: 1030;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    right: -100px;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes fadein {
+  from {
+    right: -100px;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1 !important;
+  }
+  to {
+    opacity: 0 !important;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1 !important;
+  }
+  to {
+    opacity: 0 !important;
+  }
+}

@@ -1,0 +1,4 @@
+html .navbar-floating.footer-static .app-content .content-area-wrapper,
+html .navbar-floating.footer-static .app-content .kanban-wrapper {
+  height: calc(100vh - 215px) !important;
+}

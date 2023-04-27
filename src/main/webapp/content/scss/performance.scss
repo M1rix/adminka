@@ -1,0 +1,5 @@
+td div div:nth-child(2) span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
